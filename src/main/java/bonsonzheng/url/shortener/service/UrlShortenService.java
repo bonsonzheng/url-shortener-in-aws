@@ -23,7 +23,6 @@ public class UrlShortenService {
         this.urlMapDao = urlMapDao;
 
         base62Encoder = new Base62Encoder();
-
         retrieveNextCounterRange();
     }
 

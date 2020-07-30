@@ -18,6 +18,7 @@ public class Base62Encoder {
             sb.insert(0, BASE62[(int) (value%62)]);
             value /= 62;
         } while (value > 0);
+
         return sb.toString();
     }
 
