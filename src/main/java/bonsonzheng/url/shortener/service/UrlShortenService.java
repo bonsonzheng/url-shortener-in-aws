@@ -17,10 +17,12 @@ public class UrlShortenService {
     private CounterDao counterDao;
     private UrlMapDao urlMapDao;
     private Long currentCounterCeiling;
-
+    private Base62Encoder base62Encoder;
     public UrlShortenService(CounterDao counterDao, UrlMapDao urlMapDao) {
         this.counterDao = counterDao;
         this.urlMapDao = urlMapDao;
+
+        base62Encoder = new Base62Encoder();
 
         retrieveNextCounterRange();
     }
@@ -30,7 +32,7 @@ public class UrlShortenService {
             retrieveNextCounterRange();
         }
 
-        String base62String = Base62Encoder.base62(currentCounter.getAndIncrement());
+        String base62String = base62Encoder.base62(currentCounter.getAndIncrement());
         System.out.println("longUrl : " + longUrl + " shortUrl : " + base62String);
         String shortenedUrl = urlMapDao.putItemIfNotExists(longUrl, base62String);
 
