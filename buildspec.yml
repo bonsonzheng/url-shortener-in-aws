@@ -8,6 +8,3 @@ phases:
     commands:
       - java -version
       - mvn package
-artifacts:
-  files:
-    - '**/*'
