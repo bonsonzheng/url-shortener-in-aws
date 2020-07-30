@@ -29,7 +29,7 @@ public class UrlShortenerController {
         System.out.println("short url : " + shortUrl);
         String longUrl = urlShortenService.getUrl(shortUrl);
         System.out.println(shortUrl + " :::::: " + longUrl);
-        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).header("Access-Control-Allow-Origin","*").location(URI.create(longUrl)).build();
+        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).location(URI.create(longUrl)).build();
     }
 
     @PostMapping("/url-map")
