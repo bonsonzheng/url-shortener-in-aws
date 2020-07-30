@@ -11,4 +11,3 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: 'target/url-shortener-in-aws'
