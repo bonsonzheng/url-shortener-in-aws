@@ -28,7 +28,6 @@ public class UrlShortenerController {
     public ResponseEntity<String> getLongUrl(@PathVariable String shortUrl) {
         System.out.println("short url : " + shortUrl);
         String longUrl = urlShortenService.getUrl(shortUrl);
-        System.out.println(shortUrl + " :::::: " + longUrl);
         return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).location(URI.create(longUrl)).build();
     }
 
