@@ -3,17 +3,17 @@ version: 0.0
 os: linux
 
 files:
-  - source: ./
+  - source: /
     destination: /home/ec2-user/url-shortener
 
 hooks:
-#  ApplicationStop:
-#    - location: stop.sh
-#      timeout: 20
-#      runas: ec2-user
-#    - location: move_old_pkg.sh
-#      timeout: 20
-#      runas: ec2-user
+  ApplicationStop:
+    - location: stop.sh
+      timeout: 20
+      runas: ec2-user
+    - location: move_old_pkg.sh
+      timeout: 20
+      runas: ec2-user
   ApplicationStart:
     - location: start.sh
       timeout: 20
