@@ -1,9 +1,21 @@
 <html>
 <head>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p>Get your greeting <a href="/greeting">here</a></p>
+<div style="height:200px; padding-top: 80px">
+
+    <p align="center">URL: <input type="text" id="url" length="300" size="100">
+        <button name="shorten" onclick="post_url()">shorten</button>
+    </p>
+    <p align="center">Shorten result:
+        <sapn id="result"></sapn>
+    </p>
+
+</div>
+<script src="url-shorten.js"></script>
+
+
 </body>
 </html>

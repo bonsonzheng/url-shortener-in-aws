@@ -39,7 +39,8 @@ public class UrlShortenService {
     }
 
     public String getUrl(String shortUrl){
-        return new Gson().fromJson(urlMapDao.retrieveItem(shortUrl), UrlMap.class).getLongUrl();
+        String retrievedItem = urlMapDao.retrieveItem(shortUrl);
+        return retrievedItem != null ? new Gson().fromJson(retrievedItem, UrlMap.class).getLongUrl() : null;
     }
 
     private void retrieveNextCounterRange(){
