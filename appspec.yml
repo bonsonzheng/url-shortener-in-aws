@@ -7,11 +7,12 @@ files:
     destination: /home/ec2-user/url-shortener
 
 hooks:
-  ApplicationStop:
-    - location: stop.sh
+  BeforeInstall:
+    - location: move_old_pkg.sh
       timeout: 20
       runas: ec2-user
-    - location: move_old_pkg.sh
+  ApplicationStop:
+    - location: stop.sh
       timeout: 20
       runas: ec2-user
   ApplicationStart:
