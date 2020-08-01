@@ -5,6 +5,8 @@ import bonsonzheng.url.shortener.db.CounterDao;
 import bonsonzheng.url.shortener.db.UrlMapDao;
 import bonsonzheng.url.shortener.util.Base62Encoder;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -12,12 +14,15 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class UrlShortenService {
 
+    private final Logger logger = LoggerFactory.getLogger(UrlShortenService.class);
+
     private static final long COUNTER_CHUNK_SIZE = 1000000;
     private AtomicLong currentCounter = new AtomicLong(-1);
     private CounterDao counterDao;
     private UrlMapDao urlMapDao;
     private Long currentCounterCeiling;
     private Base62Encoder base62Encoder;
+
     public UrlShortenService(CounterDao counterDao, UrlMapDao urlMapDao) {
         this.counterDao = counterDao;
         this.urlMapDao = urlMapDao;
@@ -27,7 +32,7 @@ public class UrlShortenService {
     }
 
     public String shortenUrl(String longUrl) throws Exception {
-        if(currentCounter.longValue() == -1 || currentCounter.longValue() >= currentCounterCeiling){
+        if (currentCounter.longValue() == -1 || currentCounter.longValue() >= currentCounterCeiling) {
             retrieveNextCounterRange();
         }
 
@@ -37,14 +42,16 @@ public class UrlShortenService {
         return shortenedUrl;
     }
 
-    public String getUrl(String shortUrl){
+    public String getUrl(String shortUrl) {
         String retrievedItem = urlMapDao.retrieveItem(shortUrl);
         return retrievedItem != null ? new Gson().fromJson(retrievedItem, UrlMap.class).getLongUrl() : null;
     }
 
-    private void retrieveNextCounterRange(){
+    private void retrieveNextCounterRange() {
         currentCounterCeiling = counterDao.incrementAndGet(COUNTER_CHUNK_SIZE);
         currentCounter = new AtomicLong(currentCounterCeiling - COUNTER_CHUNK_SIZE);
+
+        logger.info("Retrieved counter from database range : " + currentCounter + " - " + currentCounterCeiling);
     }
 
 }

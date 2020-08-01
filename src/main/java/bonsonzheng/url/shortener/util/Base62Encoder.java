@@ -1,8 +1,6 @@
 package bonsonzheng.url.shortener.util;
 
-/**
- * Created by zhengbangsheng on 2020/7/26.
- */
+
 public class Base62Encoder {
 
     static final char[] BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
