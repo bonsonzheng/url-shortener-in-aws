@@ -32,7 +32,6 @@ public class UrlShortenService {
         }
 
         String base62String = base62Encoder.base62(currentCounter.getAndIncrement());
-        System.out.println("longUrl : " + longUrl + " shortUrl : " + base62String);
         String shortenedUrl = urlMapDao.putItemIfNotExists(longUrl, base62String);
 
         return shortenedUrl;
