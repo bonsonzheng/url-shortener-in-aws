@@ -4,6 +4,9 @@ function post_url() {
     let result = document.getElementById("result")
     let url = "/url-map";
 
+    var data = JSON.stringify({"longUrl": long_url});
+
+
     fetch(url, {
         method: "POST",
         headers: {
