@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class UrlShortenService {
 
-    private static final long COUNTER_CHUNK_SIZE = 100000;
+    private static final long COUNTER_CHUNK_SIZE = 1000000;
     private AtomicLong currentCounter = new AtomicLong(-1);
     private CounterDao counterDao;
     private UrlMapDao urlMapDao;
