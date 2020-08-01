@@ -8,6 +8,7 @@ phases:
     commands:
       - mvn package
 artifacts:
+  discard-paths: yes
   files:
     - scripts/*
     - target/url-shortener-in-aws-1.1-SNAPSHOT.jar
