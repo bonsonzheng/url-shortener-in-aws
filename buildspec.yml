@@ -6,8 +6,7 @@ phases:
       java: corretto8
   build:
     commands:
-      - java -version
       - mvn package
 artifacts:
   files:
-    - target/url-shortener-in-aws-1.0-SNAPSHOT.jar
+    - target/url-shortener-in-aws-1.1-SNAPSHOT.jar
