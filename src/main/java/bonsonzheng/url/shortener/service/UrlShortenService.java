@@ -26,6 +26,7 @@ public class UrlShortenService {
     private Base62Encoder base62Encoder;
 
     public static final long COUNTER_CHUNK_SIZE = 1000000;
+
     private AtomicLong currentCounter = new AtomicLong(-1);
 
     private Long currentCounterCeiling;

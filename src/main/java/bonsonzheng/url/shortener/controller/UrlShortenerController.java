@@ -28,25 +28,33 @@ public class UrlShortenerController {
     @CrossOrigin
     @GetMapping("/s/{shortUrl}")
     public ResponseEntity<String> getLongUrl(@PathVariable String shortUrl) {
+
         logger.info("Receive get request with url: " + shortUrl);
+
         String longUrl = urlShortenService.getUrl(shortUrl);
+
         if(longUrl == null){
             logger.info("No mapping for url: " + shortUrl);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         logger.info("returning long url : " + longUrl + " for " + shortUrl);
+
         return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).location(URI.create(longUrl)).build();
     }
 
     @PostMapping(path = "/url-map", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public ResponseEntity<String> shorten(@RequestHeader HttpHeaders headers, @RequestBody UrlShortenReq urlShortenReq) throws Exception {
+
         logger.info("Receive post request with url: " + urlShortenReq);
+
         String urlPrefix = getUrlPrefix(headers);
         String shortenUrl = urlPrefix + urlShortenService.shortenUrl(urlShortenReq.getLongUrl());
         String bodyJson = new Gson().toJson(new UrlMap(urlShortenReq.getLongUrl(), shortenUrl));
+
         logger.info("Returning url mapping " + bodyJson);
+
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(bodyJson);
     }
 
