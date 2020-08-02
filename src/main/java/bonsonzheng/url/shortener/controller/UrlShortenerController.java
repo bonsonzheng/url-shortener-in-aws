@@ -50,7 +50,7 @@ public class UrlShortenerController {
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(bodyJson);
     }
 
-    private String getUrlPrefix(@RequestHeader HttpHeaders headers) {
+    private String getUrlPrefix(HttpHeaders headers) {
         InetSocketAddress host = headers.getHost();
         return "http://" + host.getHostName() + ":" + host.getPort() + "/s/";
     }
