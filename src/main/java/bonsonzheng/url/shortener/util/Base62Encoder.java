@@ -1,6 +1,9 @@
 package bonsonzheng.url.shortener.util;
 
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Base62Encoder {
 
     static final char[] BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();

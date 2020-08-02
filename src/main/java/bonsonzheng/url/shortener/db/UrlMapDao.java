@@ -25,7 +25,7 @@ public class UrlMapDao {
     private static final String tableName = "url_map";
 
 
-    public static String putItemIfNotExists(String longUrl, String shortUrl) throws Exception {
+    public String putItemIfNotExists(String longUrl, String shortUrl) throws Exception {
 
         try {
             Table table = dynamoDB.getTable(tableName);
@@ -44,7 +44,7 @@ public class UrlMapDao {
 
     }
 
-    public static String getShortUrl(String longUrl) throws Exception {
+    public  String getShortUrl(String longUrl) throws Exception {
         Table table = dynamoDB.getTable(tableName);
 
         Item item = table.getItem("longUrl", longUrl, "shortUrl", null);
@@ -52,7 +52,7 @@ public class UrlMapDao {
 
     }
 
-    public static String retrieveItem(String shortUrl) {
+    public String retrieveItem(String shortUrl) {
         Table table = dynamoDB.getTable(tableName);
 
 

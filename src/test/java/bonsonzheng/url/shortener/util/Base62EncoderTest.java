@@ -1,10 +1,9 @@
 package bonsonzheng.url.shortener.util;
 
-import org.apache.commons.lang3.builder.ToStringExclude;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class Base62EncoderTest {
 

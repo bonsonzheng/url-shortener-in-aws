@@ -7,6 +7,7 @@ import bonsonzheng.url.shortener.util.Base62Encoder;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,19 +17,23 @@ public class UrlShortenService {
 
     private final Logger logger = LoggerFactory.getLogger(UrlShortenService.class);
 
-    private static final long COUNTER_CHUNK_SIZE = 1000000;
-    private AtomicLong currentCounter = new AtomicLong(-1);
+    @Autowired
     private CounterDao counterDao;
+    @Autowired
     private UrlMapDao urlMapDao;
-    private Long currentCounterCeiling;
+
+    @Autowired
     private Base62Encoder base62Encoder;
 
-    public UrlShortenService(CounterDao counterDao, UrlMapDao urlMapDao) {
+    public static final long COUNTER_CHUNK_SIZE = 1000000;
+    private AtomicLong currentCounter = new AtomicLong(-1);
+
+    private Long currentCounterCeiling;
+
+    public UrlShortenService(CounterDao counterDao, UrlMapDao urlMapDao, Base62Encoder base62Encoder) {
         this.counterDao = counterDao;
         this.urlMapDao = urlMapDao;
-
-        base62Encoder = new Base62Encoder();
-        retrieveNextCounterRange();
+        this.base62Encoder = base62Encoder;
     }
 
     public String shortenUrl(String longUrl) throws Exception {
@@ -47,7 +52,7 @@ public class UrlShortenService {
         return retrievedItem != null ? new Gson().fromJson(retrievedItem, UrlMap.class).getLongUrl() : null;
     }
 
-    private void retrieveNextCounterRange() {
+    private void retrieveNextCounterRange() throws Exception{
         currentCounterCeiling = counterDao.incrementAndGet(COUNTER_CHUNK_SIZE);
         currentCounter = new AtomicLong(currentCounterCeiling - COUNTER_CHUNK_SIZE);
 
